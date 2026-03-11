@@ -1,3 +1,1 @@
-composer global require laravel/installer
-
-composer create-project laravel/laravel example-app
+Link: "https://www.youtube.com/watch?v=jLGKI_zMftU"
