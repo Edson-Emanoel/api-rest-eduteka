@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreUserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserRequest;
 
 class UserController extends Controller
 {
@@ -57,9 +58,20 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateUserRequest $request, string $id)
     {
-        //
+        $data = $request->validated();
+
+        try {
+            $user = User::findOrFail($id);
+            $user->update($data);
+
+            return response()->json($user, 200);
+        } catch (\Exception $th) {
+            return response()->json([
+                'message' => 'Falha ao alterar o usuário!'
+            ], 400);
+        }
     }
 
     /**
@@ -67,6 +79,17 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try {
+            $removed = User::destroy();
+            if(!$removed){
+                throw new Exception();
+            }
+
+            return response()->json($removed, 204);
+        } catch (\Exception $th) {
+            return response()->json([
+                'message' => 'Falha ao deletar o usuário!'
+            ], 404);
+        }
     }
 }

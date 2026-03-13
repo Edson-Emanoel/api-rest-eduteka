@@ -19,3 +19,5 @@ php artisan make:controller --api
 php artisan route:list --path=api
 
 php artisan make:request StoreUserRequest
+
+php artisan make:request UpdateUserRequest
