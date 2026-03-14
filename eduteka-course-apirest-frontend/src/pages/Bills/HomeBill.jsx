@@ -1,55 +1,50 @@
 import { Button } from "../../components/common/Button";
 import Navbar from "../../components/layout/Navbar";
 import { useEffect, useState } from "react";
-import BoxProduct from "../../components/layout/BoxProduct";
+import BoxBill from "../../components/layout/BoxBill";
 import Loader from "../../components/common/Loader";
 import api from "../../services/api";
 import "./Home.css";
 
 
-function  ProductHome() {
-  const numProductPerPage = 3;
-  const [totalProducts, setTotalProducts] = useState(0);
+function  HomeBill() {
+  const numBillPerPage = 3;
+  const [totalBills, setTotalBills] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
 
-  const [products, setProducts] = useState([]);
+  const [bills, setBills] = useState([]);
 
   useEffect(() => {
-    loadProducts();
+    loadBills();
   }, []);
 
-  const loadProducts = async () => {
+  const loadBills = async () => {
     setIsLoading(true);
 
     await api
-      .get("/products", {
-        params: {
-          current_page: currentPage,
-          per_page: 3,
-        }
-      })
+      .get("/bills")
       .then((response) => {
-        setProducts([...products, ...response.data.data]);
+        setBills([...bills, ...response.data.data]);
         setCurrentPage(currentPage + 1);
-        setTotalProducts(response.data.infos.total_products);
+        setTotalBills(response.data.infos.total_bills);
         setIsLoading(false);
       })
       .catch((error) => {
-        console.error("Erro ao buscar produtos:", error);
+        console.error("Erro ao buscar contas:", error);
         setIsLoading(false);
       });
   };
 
   useEffect(() => {
-    if (totalProducts !== products.length) {
+    if (totalBills !== bills.length) {
       fixCurrentPage();
     }
-  }, [totalProducts]);
+  }, [totalBills]);
 
   const fixCurrentPage = () => {
     //Arredonda pra cima
-    let maxNumPage = Math.ceil(totalProducts / numProductPerPage);
+    let maxNumPage = Math.ceil(totalBills / numBillPerPage);
     
     if (currentPage > maxNumPage) {
       setCurrentPage(currentPage - 1);
@@ -57,7 +52,7 @@ function  ProductHome() {
   };
 
   const loadMore = () => {
-    loadProducts();
+    loadBills();
   };
 
   return (
@@ -66,39 +61,39 @@ function  ProductHome() {
 
       <div className="main_feed">
         <div className="feed_form">
-          <h1>Listagem de Produtos</h1>
-          <p>Listagem de todos produtos cadastrados na aplicação.</p>
+          <h1>Listagem de Contas</h1>
+          <p>Listagem de todas contas cadastradas na aplicação.</p>
 
-          {products.length <= 0 ? (
+          {bills.length <= 0 ? (
             <>
               {isLoading ? (
                 <Loader />
               ) : (
-                <p>Ops! Nenhum produto cadastrado até o momento!.</p>
+                <p>Ops! Nenhuma conta cadastrada até o momento!.</p>
               )}
             </>
           ) : (
             <>
-              {products.length === 1 ? (
-                <span>1 Produto</span>
+              {bills.length === 1 ? (
+                <span>1 Conta</span>
               ) : (
-                <span>{totalProducts} Produtos</span>
+                <span>{totalBills} Contas</span>
               )}
 
-              {products.map((product, index) => {
+              {bills.map((bill, index) => {
                 return (
-                  <BoxProduct
+                  <BoxBill
                     key={index}
-                    productInfo={product}
-                    products={products}
-                    setProducts={setProducts}
-                    totalUsers={totalProducts}
-                    setTotalUsers={setTotalProducts}
+                    billInfo={bill}
+                    bills={bills}
+                    setBills={setBills}
+                    totalBills={totalBills}
+                    setTotalBills={setTotalBills}
                   />
                 );
               })}
 
-              {products.length < totalProducts && (
+              {bills.length < totalBills && (
                 <>
                   {isLoading ? (
                     <Loader />
@@ -115,4 +110,4 @@ function  ProductHome() {
   );
 }
 
-export default ProductHome;
+export default HomeBill;

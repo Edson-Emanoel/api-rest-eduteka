@@ -20,11 +20,20 @@ function Navbar() {
         </li>
         
         <li>
-          <Link to="/product">Listagem de Usuários</Link>
+          <Link to="/product">Listagem de Produtos</Link>
         </li>
 
         <li>
-          <Link to="/product/new">Cadastro de Usuários</Link>
+          <Link to="/product/new">Cadastro de Produtos</Link>
+        </li>
+        
+        
+        <li>
+          <Link to="/bill">Listagem de Contas</Link>
+        </li>
+
+        <li>
+          <Link to="/bill/new">Cadastro de Contas</Link>
         </li>
       </ul>
     </nav>

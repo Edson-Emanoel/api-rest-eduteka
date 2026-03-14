@@ -18,11 +18,11 @@ class DatabaseSeeder extends Seeder
         // User::factory(10)->create();
 
         User::factory(8)->create([
-            // 'name' => 'Test User',
-            // 'email' => 'test@example.com',
             'date_of_birth' => Carbon::now()->subYears(20)->format('Y-m-d'),
         ]);
 
         Product::factory(8)->create();
+
+        Bill::factory(8)->create();
     }
 }

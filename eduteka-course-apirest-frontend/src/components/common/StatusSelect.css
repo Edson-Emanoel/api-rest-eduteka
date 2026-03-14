@@ -3,10 +3,7 @@
   opacity: 1;
 }
 
-input[type="text"],
-input[type="email"],
-input[type="date"],
-input[type="number"] {
+select {
   background: var(--color-c);
   border: 2px solid var(--color-b);
   border-radius: 5px;
@@ -21,10 +18,7 @@ input[type="number"] {
   opacity: 0.8;
 }
 
-input[type="text"],
-input[type="email"],
-input[type="date"],
-input[type="number"] {
+select {
   transform: scale(1.015);
   border-color: var(--color-j);
   opacity: 1;

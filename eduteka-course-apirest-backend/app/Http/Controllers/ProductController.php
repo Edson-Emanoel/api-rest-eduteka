@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Exception;
 use App\Models\Product;
+use Illuminate\Http\Request;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 
@@ -12,11 +13,16 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::all();
+        $currentPage = $request->get('current_page') ?? 1;
+        $regsPerPage = 3;
 
-        return response()->json($products, 200);
+        $skip = ($currentPage - 1) * $regsPerPage;
+
+        $products = Product::skip($skip)->take($regsPerPage)->orderByDesc('id')->get();
+
+        return response()->json($products->toResourceCollection(), 200);
     }
 
     /**

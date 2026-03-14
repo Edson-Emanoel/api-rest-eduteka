@@ -32,7 +32,7 @@ function  Home() {
       .get("/users", {
         params: {
           current_page: currentPage,
-          // per_page: 3,
+          per_page: 3,
         },
       })
       .then((response) => {

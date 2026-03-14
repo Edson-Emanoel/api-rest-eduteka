@@ -1,7 +1,12 @@
 import Home from "../pages/Home";
+import Register from "../pages/Register";
+
 import ProductHome from "../pages/Products/HomeProduct";
 import ProductRegister from "../pages/Products/RegisterProduct";
-import Register from "../pages/Register";
+
+import HomeBill from "../pages/Bills/HomeBill";
+import RegisterBill from "../pages/Bills/RegisterBill";
+
 import { Routes as RoutesManager, Route } from "react-router-dom";
 
 function Routes() {
@@ -16,7 +21,12 @@ function Routes() {
         {/* Products Pages */}
         <Route path="/product" element={<ProductHome />} />
         <Route path="/product/new" element={<ProductRegister />} />
-        <Route path="/product/alterar/:userId" element={<ProductRegister />} />
+        <Route path="/product/:productId" element={<ProductRegister />} />
+
+        {/* Products Pages */}
+        <Route path="/bill" element={<HomeBill />} />
+        <Route path="/bill/new" element={<RegisterBill />} />
+        <Route path="/bill/:billId" element={<RegisterBill />} />
 
         <Route path="*" element={<h1>Página não encontrada</h1>} />
       </RoutesManager>

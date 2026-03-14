@@ -6,42 +6,44 @@ import Input from "../../components/common/Input";
 import { Link, useParams } from "react-router-dom";
 import Navbar from "../../components/layout/Navbar";
 import { Button } from "../../components/common/Button";
+import CategorySelect from "../../components/common/CategorySelect";
+import StatusSelect from "../../components/common/StatusSelect";
 
-function ProductRegister() {
-  const { productId } = useParams();
+function RegisterBill() {
+  const { billId } = useParams();
   const [isLoading, setIsLoading] = useState(false);
 
   const [formData, setFormData] = useState({
     name: "",
     price: 0,
-    description: "",  
-    stock: 1,
+    status: "",  
+    category: "",
   });
 
   const [formDataErrors, setFormDataErrors] = useState({
     name: [],
     price: [],
-    description: [],
-    stock: [],
+    status: [],
+    category: [],
   });
 
   useEffect(() => {
-    if (productId) {
-      loadProduct();
+    if (billId) {
+      loadBill();
     }
-  }, [productId]);
+  }, [billId]);
 
-  const loadProduct = async () => {
+  const loadBill = async () => {
     setIsLoading(true);
 
     await api
-      .get(`/products/${productId}`)
+      .get(`/bills/${billId}`)
       .then((response) => {
         setFormData(response.data);
         setIsLoading(false);
       })
       .catch((error) => {
-        console.error("Erro ao buscar produtos:", error);
+        console.error("Erro ao buscar contas:", error);
         setIsLoading(false);
       });
   };
@@ -52,10 +54,10 @@ function ProductRegister() {
     setFormDataErrors({});
 
     await api
-      .put(`/products/${productId}`, formData)
+      .put(`/bills/${billId}`, formData)
       .then((response) => {
         console.log(response);
-        toast.success("Produto alterado com sucesso!");
+        toast.success("Conta alterada com sucesso!");
         setIsLoading(false);
       })
       .catch((error) => {
@@ -77,7 +79,7 @@ function ProductRegister() {
     setFormDataErrors({});
 
     await api
-      .post("/products", formData)
+      .post("/bills", formData)
       .then((response) => {
         console.log(response);
         toast.success("Cadastro realizado com sucesso!");
@@ -103,15 +105,15 @@ function ProductRegister() {
 
       <div className="main_feed">
         <div className="feed_form">
-          {productId ? (
+          {billId ? (
             <>
-              <h1>Alterar produto</h1>
-              <p>Altere os dados do produto na aplicação.</p>
+              <h1>Alterar Conta</h1>
+              <p>Altere os dados do conta na aplicação.</p>
             </>
           ) : (
             <>
-              <h1>Cadastrar novo produto</h1>
-              <p>Cadastre um novo produto na aplicação.</p>
+              <h1>Cadastrar novo Conta</h1>
+              <p>Cadastre um novo conta na aplicação.</p>
             </>
           )}
 
@@ -120,7 +122,7 @@ function ProductRegister() {
               type="text"
               name="name"
               value={formData.name}
-              placeholder="Nome do Produto"
+              placeholder="Nome da Conta"
               validateErrors={formDataErrors?.name}
               onChange={(e) =>
                 setFormData({ ...formData, name: e.target.value })
@@ -131,38 +133,34 @@ function ProductRegister() {
               type="number"
               name="price"
               value={formData.price}
-              placeholder="Preço"
+              placeholder="Preço da Conta"
               validateErrors={formDataErrors?.price}
               onChange={(e) =>
                 setFormData({ ...formData, price: e.target.value })
               }
             />
             
-            <Input
-              type="text"
-              name="description"
-              value={formData.description}
-              placeholder="Descrição do Produto"
-              validateErrors={formDataErrors?.description}
+            <CategorySelect
+              name="category"
+              value={formData.category}
+              validateErrors={formDataErrors?.category}
               onChange={(e) =>
-                setFormData({ ...formData, description: e.target.value })
+                setFormData({ ...formData, category: e.target.value })
               }
             />
 
-            <Input
-              type="number"
-              name="stock"
-              value={formData.stock}
-              placeholder="Qtd. em Estoque"
-              validateErrors={formDataErrors?.stock}
+            <StatusSelect
+              name="status"
+              value={formData.status}
+              validateErrors={formDataErrors?.status}
               onChange={(e) =>
-                setFormData({ ...formData, stock: e.target.value })
+                setFormData({ ...formData, status: e.target.value })
               }
             />
 
             <Link
               to={{
-                pathname: "/product",
+                pathname: "/bill",
                 // search: "?query=string",
                 // hash: "#hash",
               }}
@@ -170,7 +168,7 @@ function ProductRegister() {
               Ver listagem
             </Link>
 
-            {productId ? (
+            {billId ? (
               <Button onClick={(e) => handleUpdate(e)}>
                 {isLoading ? "Alterando..." : "Alterar"}
               </Button>
@@ -186,4 +184,4 @@ function ProductRegister() {
   );
 }
 
-export default ProductRegister;
+export default RegisterBill;

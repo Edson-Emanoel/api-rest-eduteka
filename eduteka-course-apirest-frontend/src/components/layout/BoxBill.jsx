@@ -1,4 +1,4 @@
-import "./BoxProduct.css";
+import "./BoxBill.css";
 import { useState } from "react";
 import Modal from "../common/Modal";
 import api from "../../services/api";
@@ -6,20 +6,20 @@ import { useNavigate } from "react-router-dom";
 import { Button, ButtonSmall } from "../common/Button";
 import { BiTrash, BiEdit, BiSolidUserCircle } from "react-icons/bi";
 
-function BoxProduct({ productInfo, products, setProducts, totalProducts, setTotalProducts }) {
+function BoxBill({ billInfo, bills, setBills, totalBills, setTotalBills }) {
   const [modalRmvProductIsOpen, setModalRmvProductIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
-  const handleDelete = async (productId) => {
+  const handleDelete = async (billId) => {
     setIsLoading(true);
 
     await api
-      .delete(`/products/${productId}`)
+      .delete(`/bills/${billId}`)
       .then((response) => {
         console.log(response);
-        setProducts(products.filter((product) => product.id !== productId));
-        setTotalProducts(totalProducts - 1);
+        setBills(bills.filter((billId) => billId.id !== billIdId));
+        setTotalBills(totalBills - 1);
         setIsLoading(false);
         setModalRmvProductIsOpen(!modalRmvProductIsOpen);
       })
@@ -29,8 +29,8 @@ function BoxProduct({ productInfo, products, setProducts, totalProducts, setTota
       });
   };
 
-  const handleUpdate = (productId) => {
-    navigate(`/product/${productId}`);
+  const handleUpdate = (billId) => {
+    navigate(`/bill/${billId}`);
   };
 
   return (
@@ -42,9 +42,14 @@ function BoxProduct({ productInfo, products, setProducts, totalProducts, setTota
 
         <div className="box_infos">
           <div className="infos">
-            <h2>{productInfo.name}</h2>
-            <span>{productInfo.description}</span><br />
-            <p>R$ {productInfo.price}</p>
+            <h2>{billInfo.name}</h2>
+            
+            <div className="dual-th">
+              <span>{billInfo.category}</span>
+              <span>Status: {billInfo.status}</span>
+            </div><br />
+
+            <p>R$ {billInfo.price}</p>
           </div>
 
           <div className="actions">
@@ -52,7 +57,7 @@ function BoxProduct({ productInfo, products, setProducts, totalProducts, setTota
               className="updt"
               tooltipId="react-tooltip-edt"
               tooltipContent="Editar"
-              onClick={() => handleUpdate(productInfo.id)}
+              onClick={() => handleUpdate(billInfo.id)}
             >
               <BiEdit />
             </ButtonSmall>
@@ -75,10 +80,10 @@ function BoxProduct({ productInfo, products, setProducts, totalProducts, setTota
         onClose={() => setModalRmvProductIsOpen(!modalRmvProductIsOpen)}
       >
         <p>
-          Tem certeza que deseja remover o produto <b>{productInfo?.name}</b>?
+          Tem certeza que deseja remover a conta <b>{billInfo?.name}</b>?
         </p>
 
-        <Button onClick={() => handleDelete(productInfo.id)}>
+        <Button onClick={() => handleDelete(billInfo.id)}>
           {isLoading ? "Removendo..." : "Confirmar remoção"}
         </Button>
       </Modal>
@@ -86,4 +91,4 @@ function BoxProduct({ productInfo, products, setProducts, totalProducts, setTota
   );
 }
 
-export default BoxProduct;
+export default BoxBill;
