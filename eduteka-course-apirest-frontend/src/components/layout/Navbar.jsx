@@ -18,6 +18,14 @@ function Navbar() {
         <li>
           <Link to="/cadastrar">Cadastrar</Link>
         </li>
+        
+        <li>
+          <Link to="/product">Listagem de Usuários</Link>
+        </li>
+
+        <li>
+          <Link to="/product/new">Cadastro de Usuários</Link>
+        </li>
       </ul>
     </nav>
   );

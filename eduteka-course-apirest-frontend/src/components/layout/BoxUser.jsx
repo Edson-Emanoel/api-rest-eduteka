@@ -1,11 +1,11 @@
-import { useState } from "react";
-import { Button, ButtonSmall } from "../common/Button";
 import "./BoxUser.css";
-import { BiTrash, BiEdit, BiSolidUserCircle } from "react-icons/bi";
+import { useState } from "react";
 import Modal from "../common/Modal";
 import api from "../../services/api";
 import { useNavigate } from "react-router-dom";
 import { formatDate } from "../../utils/dateUtils";
+import { Button, ButtonSmall } from "../common/Button";
+import { BiTrash, BiEdit, BiSolidUserCircle } from "react-icons/bi";
 
 function BoxUser({ user, users, setUsers, totalUsers, setTotalUsers }) {
   const [modalRmvUserIsOpen, setModalRmvUserIsOpen] = useState(false);
