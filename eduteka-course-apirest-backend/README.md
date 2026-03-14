@@ -14,6 +14,8 @@ php artisan install:api
 
 ## Novo modulo
 
+php artisan make:migration create_{table}_table
+
 php artisan make:controller --api
 
 php artisan route:list --path=api

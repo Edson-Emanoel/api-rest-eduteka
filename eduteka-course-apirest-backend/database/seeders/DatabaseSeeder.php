@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Product;
 use App\Models\User;
 use Carbon\Carbon;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -21,5 +22,7 @@ class DatabaseSeeder extends Seeder
             // 'email' => 'test@example.com',
             'date_of_birth' => Carbon::now()->subYears(20)->format('Y-m-d'),
         ]);
+
+        Product::factory(8)->create();
     }
 }
