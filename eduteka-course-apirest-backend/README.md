@@ -21,3 +21,7 @@ php artisan route:list --path=api
 php artisan make:request StoreUserRequest
 
 php artisan make:request UpdateUserRequest
+
+php artisan make:resource UserCollection
+
+php artisan make:resource UserResources

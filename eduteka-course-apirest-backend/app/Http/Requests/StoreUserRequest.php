@@ -24,7 +24,7 @@ class StoreUserRequest extends FormRequest
     {
         return [
             "name" => "required",
-            "email " => "nullable|email|unique:table,column,except,id",
+            "email" => "nullable|email|unique:users,email",
             "date_of_birth" => "nullable|date|before:today",
         ];
     }

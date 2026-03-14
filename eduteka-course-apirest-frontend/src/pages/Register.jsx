@@ -39,7 +39,7 @@ function Register() {
         setIsLoading(false);
       })
       .catch((error) => {
-        // console.error("Erro ao buscar usuários:", error);
+        console.error("Erro ao buscar usuários:", error);
         setIsLoading(false);
       });
   };
@@ -52,7 +52,7 @@ function Register() {
     await api
       .put(`/users/${userId}`, formData)
       .then((response) => {
-        // console.log(response);
+        console.log(response);
         toast.success("Cadastro alterado com sucesso!");
         setIsLoading(false);
       })
@@ -61,7 +61,7 @@ function Register() {
         if (error.status === 422) {
           setFormDataErrors(error.response.data.errors);
         } else {
-          // console.log(error);
+          console.log(error);
           toast.error(error.response.data);
         }
 
@@ -77,7 +77,7 @@ function Register() {
     await api
       .post("/users", formData)
       .then((response) => {
-        // console.log(response);
+        console.log(response);
         toast.success("Cadastro realizado com sucesso!");
         setFormData({});
         setIsLoading(false);
@@ -87,7 +87,7 @@ function Register() {
         if (error.status === 422) {
           setFormDataErrors(error.response.data.errors);
         } else {
-          // console.log(error);
+          console.log(error);
           toast.error(error.response.data);
         }
 

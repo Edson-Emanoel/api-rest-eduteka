@@ -6,7 +6,7 @@ import Loader from "../components/common/Loader";
 import api from "../services/api";
 import "./Home.css";
 
-function Home() {
+function  Home() {
   const numUsersPerPage = 3;
   const [totalUsers, setTotalUsers] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
@@ -42,7 +42,7 @@ function Home() {
         setIsLoading(false);
       })
       .catch((error) => {
-        // console.error("Erro ao buscar usuários:", error);
+        console.error("Erro ao buscar usuários:", error);
         setIsLoading(false);
       });
   };
