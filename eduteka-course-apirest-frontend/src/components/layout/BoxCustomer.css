@@ -1,0 +1,15 @@
+.box_infos {
+  display: flex;
+  flex-direction: row;
+}
+
+.infos {
+  height: 80px;
+  display: flex;
+  flex-direction: column;
+}
+
+.dual-th {
+  display: flex;
+  gap: 10px;
+}

@@ -14,11 +14,16 @@ class CustomerController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $customers = Customer::all();
+        $currentPage = $request->get('current_page') ?? 1;
+        $regsPerPages = 3;
 
-        return response()->json($customers, 200);
+        $skip = ($currentPage - 1) * $regsPerPages;
+
+        $customers = Customer::skip($skip)->take($regsPerPages)->orderByDesc('id')->get();
+
+        return response()->json($customers->toResourceCollection(), 200);
     }
 
     /**

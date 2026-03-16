@@ -68,7 +68,9 @@ function  Home() {
 
   return (
     <div>
-      <Navbar />
+      <div className="navbar-container">
+        <Navbar />
+      </div>
 
       <div className="main_feed">
         <div className="feed_form">
