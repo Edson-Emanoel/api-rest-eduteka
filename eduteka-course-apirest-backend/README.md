@@ -18,6 +18,8 @@ php artisan make:model
 
 php artisan make:migration create_{table}_table
 
+php artisan migrate
+
 php artisan make:controller --api
 
 php artisan route:list --path=api

@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import BoxBill from "../../components/layout/BoxBill";
 import Loader from "../../components/common/Loader";
 import api from "../../services/api";
-import "./Home.css";
+import "./HomeBill.css";
 
 
 function  HomeBill() {
